@@ -17,8 +17,8 @@ Wykonał: Jakub Szubartowski (A01/C01/L02)   I Informatyka
 using namespace std;
 
 // options
-const int gen_max_products = 15;    // LINIJKA '20' DO ZMIANY OPCJI GENERATORA
-const int upperLimit = 25;          // NIE ZMIENIAĆ!! chyba ze doda sie unikalne nazwy do generatora \/
+const int gen_max_products = 15;                                                                                          // LINIJKA '20' DO ZMIANY OPCJI GENERATORA
+const int upperLimit = 25;                                                                                                // NIE ZMIENIAĆ!! chyba ze doda sie unikalne nazwy do generatora \/
 string template_products[upperLimit] = { "FlexiGrip", "TerraSync", "NovaSphere", "VitaNova", "SwiftLink", "MaxiLink", "EchoSync", "ZeniGlow", "AeroWave", "PulseMate", "PuraZen", "SwiftFlare", "TurboCharge", "EchoJet", "XeroGlide", "HyperSync", "LuminaTouch", "VitaSoul", "HyperPulse", "OptiFlex", "SnapFlare", "BlazeBurst", "SparkFusion", "LuminaLuxe", "LunaBloom"};
 string ex_in_filename = "LogicTransport - products";
 float weight_limit = 10;
@@ -52,8 +52,8 @@ public:
         string selected_product_names[gen_max_products];
         for (int i = 0; i < gen_max_products; ++i) {selected_product_names[i] = template_products[i];}
 
-        uniform_real_distribution<double> distr_weight(0.5f, 3.0f);      // weight
-        uniform_real_distribution<double> distr_price(25.0f, 50.0f);      // price
+        uniform_real_distribution<double> distr_weight(0.5f, 3.0f);      // w
+        uniform_real_distribution<double> distr_price(25.0f, 50.0f);      // p
 
         for (int i = 0; i < gen_max_products; ++i) {
 
