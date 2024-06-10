@@ -68,7 +68,7 @@ public:
     
     void saveStep(string moveType, int placeIDX, int placeIDY) {                                                             //// funtion for saving move to array
         stepsCount++;                                                                                                        // increase step counter
-        string step = "(" + to_string(placeIDX + 1) + ", " + to_string(placeIDY + 1) + ") -> " + moveType;          // move formating
+        string step = "(" + to_string(placeIDX + 1) + ", " + to_string(placeIDY + 1) + ") -> " + moveType;          		 // move formating
         steps.push_back(step);                                                                                               // send move to array
     }
 
@@ -98,30 +98,30 @@ public:
     vector<vector<bool>> board;                                                                                              // 2D vector
     ofstream file;                                                                                                           // archive file
     Blackbox bbox;                                                                                                           // archive func
-    Chessboard(int size) : board(size, vector<bool>(size, false)) {}                                                // fill board with flase (true - queen standing)
+    Chessboard(int size) : board(size, vector<bool>(size, false)) {}                                                		 // fill board with flase (true - queen standing)
 
     bool isSafe(int row, int col) {                                                                                          //// check if move is safe
         for (int i = 0; i < boardSize; ++i) {                                                                                // check row and col
             if (board[row][i] || board[i][col]) {                                                                            // ========
-                bbox.saveStep("NOT SAFE", row, col);                                             // send decision to archive
+                bbox.saveStep("NOT SAFE", row, col);                                             							 // send decision to archive
                 return false;                                                                                                // illegal move
             }
         }
         
         for (int i = row, j = col; i >= 0 && j >= 0; --i, --j) {                                                             // check przekątna
             if (board[i][j]) {
-                bbox.saveStep("NOT SAFE", row, col);                                             // send decision to archive
+                bbox.saveStep("NOT SAFE", row, col);                                             							 // send decision to archive
                 return false;                                                                                                // illegal move
             }
         }
         for (int i = row, j = col; i < boardSize && j >= 0; ++i, --j) {                                                      // and another przekątna
             if (board[i][j]) {
-                bbox.saveStep("NOT SAFE", row, col);                                             // send decision to archive
+                bbox.saveStep("NOT SAFE", row, col);                                             							 // send decision to archive
                 return false;                                                                                                // illegal move
             }
         }
 
-        bbox.saveStep("SAFE", row, col);                                                         // send decision to archive
+        bbox.saveStep("SAFE", row, col);                                                         							 // send decision to archive
         return true;                                                                                                         // legal move! place queen
     }
 
@@ -130,26 +130,26 @@ public:
         
         if (col >= boardSize) {                                                                                              // check if N queens placed
             isActive = false;                                                                                                // set active to false
-            system("cls");                                                                                         // clear console
+            system("cls");                                                                                         			 // clear console
             printSolution();                                                                                                 // print solution
             return true;
         }
 
         for (int i = 0; i < boardSize; ++i) {                                                                                // check cell one by one in row
-            if (isSafe(i, col)) {                                                                                        // check if place is safe
+            if (isSafe(i, col)) {                                                                                        	 // check if place is safe
                 board[i][col] = true;                                                                                        // place queen
-                bbox.saveStep("PLACED", i, col);                                                 // send decision to archive
+                bbox.saveStep("PLACED", i, col);                                                 							 // send decision to archive
                 
                 if(!turboMode){                                                                                              // just dont print board when "only solution" selected
-                    system("cls");                                                                                 // clear console
+                    system("cls");                                                                                 			 // clear console
                     printSolution();                                                                                         // print solution
-                    this_thread::sleep_for(chrono::milliseconds(solveSpeed));                                       // wait N ms between isSafe check
-                }else { system("cls"); bbox.printStatus(); }                                                       // if "only solution" then refresh only status
+                    this_thread::sleep_for(chrono::milliseconds(solveSpeed));                                       		 // wait N ms between isSafe check
+                }else { system("cls"); bbox.printStatus(); }                                                       			 // if "only solution" then refresh only status
                 
-                if (solve(col + 1)) { if(turboMode){ system("cls"); } return true; }                               // recursive call (!)
-                if(turboMode){ system("cls"); }                                                                    // clear console
+                if (solve(col + 1)) { if(turboMode){ system("cls"); } return true; }                               			 // recursive call (!)
+                if(turboMode){ system("cls"); }                                                                    			 // clear console
                 board[i][col] = false;                                                                                       // remove queen from 1-n col when out of options
-                bbox.saveStep("REMOVED", i, col);                                                // send decision to archive
+                bbox.saveStep("REMOVED", i, col);                                                							 // send decision to archive
             }
         }
 
@@ -172,9 +172,9 @@ public:
                         case 84:                                                                                             // 't' key
                             isActive = false;                                                                                // set flags to false
                             isStarted = false;                                                                               // ========
-                            bbox.saveStep("TERMINATED", -2, -2);                                 // send decision to archive
-                            this_thread::sleep_for(chrono::milliseconds(200));                                  // go to sleep
-                            exit(0);                                                                                   // exit with code '0'
+                            bbox.saveStep("TERMINATED", -2, -2);                                 							 // send decision to archive
+                            this_thread::sleep_for(chrono::milliseconds(200));                                  			 // go to sleep
+                            exit(0);                                                                                   		 // exit with code '0'
 
                         default:
                             continue;                                                                                        // default, not used
@@ -185,7 +185,7 @@ public:
         
         cout << "     ";                                                                                                     // spaces for allign
         for (int i = 0; i < boardSize; ++i) {                                                                                // loop through each col (first row with num)
-            cout << setw(2) << setfill('0') << i + 1 << "  ";                                                            // print col num with format
+            cout << setw(2) << setfill('0') << i + 1 << "  ";                                                            	 // print col num with format
         }
         cout << endl;                                                                                                        // next line
         cout << "   +";                                                                                                      // plus with border
@@ -195,7 +195,7 @@ public:
         cout << endl;                                                                                                        // next line
 
         for (int i = 0; i < boardSize; ++i) {                                                                                // loop through each row
-            cout << setw(2) << setfill('0') << i + 1 << " |";                                                            // row num with padding
+            cout << setw(2) << setfill('0') << i + 1 << " |";                                                            	 // row num with padding
             for (int j = 0; j < boardSize; ++j) {                                                                            // loop through each col 
                 cout << " " << (board[i][j]? "H" : " ") << " |";                                                             // "H" : " "   <- first for occupied, sec for empty
             }
@@ -218,14 +218,14 @@ public:
 
     void addSolution(){                                                                                                      //// add finished chessboard to archive file
 
-        file.open(filePath, ios::app);                                                                                 // open archive file in append mode
+        file.open(filePath, ios::app);                                                                                 	 	 // open archive file in append mode
         if (!file.is_open()) {                                                                                               // check if open
             cerr << "Cannot save solution to output file!" << endl;                                                          // print error if closed
         }else{
             
             stringstream ss;                                                                                                 // create a stringstream to temporarily hold the output
             streambuf* coutbuf = cout.rdbuf();                                                                               // save the original cout buffer
-            cout.rdbuf(ss.rdbuf());                                                                                   // redirect cout to the stringstream
+            cout.rdbuf(ss.rdbuf());                                                                                   		 // redirect cout to the stringstream
             file << endl << endl;                                                                                            // add blank lines on append
             printSolution();                                                                                                 // print chessboard direct to archive file
             cout.rdbuf(coutbuf);                                                                                             // restore the original cout buffer
@@ -242,10 +242,10 @@ public:
     Blackbox bbox;
     
     void runChessboard() {                                                                                                   // run solver
-        bbox.innit(false);                                                                                              // innit BlackBox (archive module)
+        bbox.innit(false);                                                                                              	 // innit BlackBox (archive module)
         Chessboard chessboard(boardSize);                                                                                    // innit chessboard
 
-        if (chessboard.solve(0)) {                                                                                       // check if solution exists
+        if (chessboard.solve(0)) {                                                                                       	 // check if solution exists
             if(turboMode){ chessboard.printSolution(); }                                                                     // if turboMode active print innit board
             cout << endl << "Solution found!" << endl;                                                                       // solution found
         } else {
@@ -253,7 +253,7 @@ public:
         }
         bbox.saveStepsToFile();                                                                                              // save steps from vector to file
         chessboard.addSolution();                                                                                            // add finished chessboard to end of archive file
-        bbox.innit(true);                                                                                               // deactivate archive module
+        bbox.innit(true);                                                                                               	 // deactivate archive module
         firstStart = true;                                                                                                   // reset start flag
     }
     
