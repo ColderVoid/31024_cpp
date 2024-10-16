@@ -6,6 +6,10 @@ Wykonał: Jakub Szubartowski (A01/C01/L02)   I Informatyka
 
 */
 
+/*
+Wedle zyczenia dodaje cos do pliku
+*/
+
 #include <algorithm>
 #include <iostream>
 #include <fstream>
